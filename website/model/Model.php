@@ -6,15 +6,22 @@
  * Time: 14:23
  */
 include_once("model/Content.php");
+include_once("model/Formation.php");
 
 class Model {
+
     public function getContentList()
     {
         // here goes some hardcoded values to simulate the database
         return array(
-            "Anglais" => new Content("Anglais", "Ceci est de l'anglais","09/02" , "10/05"), //"D.Verdonck"
-            "Sécurité des réseaux" => new Content("Sécurité des réseaux","Ceci est une description de cours", "10/02", "15/05"),//"A.Vanham"
-            "PHP" => new Content("PHP", "Ceci est le cours de Delvigne", "15/03","5/05") //"N.Sias
+            "main" => new Content("<br/>Bienvenue sur Bsmart", "Le meilleur de site de formation en ligne"),
+            "english" => new Content("Anglais", "Ceci est de l'anglais"), //"D.Verdonck"
+            "security" => new Content("Sécurité des réseaux","Ceci est une description de cours"),//"A.Vanham"
+            "php" => new Content("PHP", "Ceci est le cours de Delvigne"),
+            "evaluation" => new Content("Vos evaluations", "Ceci est la liste des eval"),
+            "login" => new Content("Connexion", "Connectez-vous !"),
+            "register" => new Content("Inscription", "Inscrivez-vous !"),
+            "allFormation" => new Content("Toutes les formations", "Ceci est la liste des formations")
         );
     }
 

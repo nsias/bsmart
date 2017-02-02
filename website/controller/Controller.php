@@ -19,15 +19,15 @@ class Controller {
     {
         if (!isset($_GET['content']))
         {
-            // no special book is requested, we'll show a list of all available books
-            $contents = $this->model->getContentList();
+            // no special book is requested, we'll show a list of all available contents
+            $content = $this->model->getContent("main");
             include 'view/viewmain.php';
         }
         else
         {
-            // show the requested book
+            // show the requested content
             $content = $this->model->getContent($_GET['content']);
-            include 'view/viewcontent.php';
+            include 'view/viewmain.php';
         }
     }
 }

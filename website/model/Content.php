@@ -7,15 +7,11 @@
  */
 class Content {
     public $title;
-    public $description;
-    public $begin_date;
-    public $final_date;
+    public $content;
 
-    public function __construct($title, $description, $begin_date, $final_date)
+    public function __construct($title, $content)
     {
         $this->title = $title;
-        $this->theory = $description;
-        $this->begin_date = $begin_date;
-        $this->final_date = $final_date;
+        $this->content = $content;
     }
 }
