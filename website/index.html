@@ -10,7 +10,7 @@
 	    <link rel="shortcut icon" href="img/favicon-16x16.png"> <!-- needs a favicon -->
 
 	    <!-- Title of Website -->
-	    <title>Bstarm</title>
+	    <title>Bsmart</title>
 
 	    <!-- Css for style -->
 	    <link href="css/bootstrap.css" rel="stylesheet">
@@ -40,7 +40,7 @@
 					<a class="navbar-brand" href="index.html">Bsmart</a>
 					</a>
 				</div>
-				<div class="navbar-collapse collapse">
+				<div id="menu" class="navbar-collapse collapse">
 					<!-- Main navigation buttons -->
 					<ul class="nav navbar-nav navbar-left">
 						<li class="dropdown">
@@ -61,7 +61,7 @@
 					<!-- Search-->
 					<form class="navbar-form navbar-right">
 						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Activité, Ville, ...">
+							<input type="text" class="form-control" placeholder="Je sais pas si c'est utile">
 						</div>
 						<button type="submit" class="btn btn-default">Chercher</button>
 					</form>
@@ -114,7 +114,7 @@
 		<!-- Footer of the page -->
 		<footer class="website-footer"> 
 			<p>
-				Copyright © 2017 Bsmart | <button class="mod" id="contact"" >Contact</button> | <button class="mod" id="credits" >Design, Crédits & Mentions Légales</button>
+				Copyright © 2017 Bsmart | <button class="mod" id="contact" >Contact</button> | <button class="mod" id="credits" >Design, Crédits & Mentions Légales</button>
 			</p>	
 		</footer>
 		
@@ -137,6 +137,10 @@
 				$('.go-top').click(function(event) {
 					event.preventDefault();
 					$('html, body').animate({scrollTop: 0}, 100);
+				})
+				$('#menu li').click(function(event){
+					event.preventDefault();
+					$('#content').html("YoloTest");
 				})
 			});
 	    </script>
