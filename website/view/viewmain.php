@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A website to find the perfect activity in your region">
-    <meta name="author" content="Dizier Romain">
+    <meta name="author" content="Groupe B">
     <link rel="shortcut icon" href="img/favicon-16x16.png"> <!-- needs a favicon -->
 
     <!-- Title of Website -->
@@ -35,7 +35,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="index.html">
+            <a href="index.php">
                 <img src="img/logo-alpha.png" id="logo" alt="Laptop" style="width:56px;height:56px;border:0;">
                 <a class="navbar-brand" href="index.html">Bsmart</a>
             </a>
@@ -59,10 +59,6 @@
             </ul>
             <!-- Search-->
             <form class="navbar-form navbar-right">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Je sais pas si c'est utile">
-                </div>
-                <button type="submit" class="btn btn-default">Chercher</button>
             </form>
         </div>
     </div>
@@ -76,7 +72,6 @@
                 <h1>
                     <?php echo $content->title ?>
                 </h1>
-                <br/>
                 <p>
                     <?php echo $content->content ?>
                 </p>
@@ -123,11 +118,11 @@
             var rq = $(this).find("a").attr('href');
             if(rq != "#")
             {
-                console.log(rq);
+                //console.log(rq);
                 $.get("index.php?content="+rq, function(data){
                     //document.title = rq;
-                    console.log(data);
-                    $("#content").load("index.php?content="+rq+" #content");
+                    //console.log(data);
+                    $("#content").load("index.php?content="+rq+" #content .container");
                  });
             }
         });
