@@ -14,8 +14,8 @@ class Model {
     {
         // here goes some hardcoded values to simulate the database
         return array(
-            "main" => new Content("<br/>Bienvenue sur Bsmart", "Le meilleur de site de formation en ligne"),
-            "english" => new Content("Anglais", "Ceci est de l'anglais"), //"D.Verdonck"
+            "main" => new Content("Bienvenue sur Bsmart", "Le meilleur de site de formation en ligne"),
+            "english" => new Content("Anglais", $this->getFormationContent("english")), //"D.Verdonck"
             "security" => new Content("Sécurité des réseaux","Ceci est une description de cours"),//"A.Vanham"
             "php" => new Content("PHP", "Ceci est le cours de Delvigne"),
             "evaluation" => new Content("Vos evaluations", "Ceci est la liste des eval"),
@@ -32,6 +32,14 @@ class Model {
         $allContents = $this->getContentList();
         return $allContents[$title];
     }
+
+    public function getFormationContent($title)
+    {
+        $formation = new Formation($title);
+        return $formation->content;
+
+    }
+
 
 
 }
