@@ -15,7 +15,11 @@ class Formation {
     {
         $db_info = new ConnectionDB();
         //$sql = new PDO("mysql: host =localhost; dbname=1516he201220", "SIAS" , "Nicolas6B4g");
-        $sql = new PDO("mysql: host =".$db_info->server_name.";dbname=".$db_info->db_name."","".$db_info->user."","".$db_info->password."");
+        //$sql = new PDO("mysql:host=".$db_info->server_name.";dbname=".$db_info->db_name.",".$db_info->user.",".$db_info->password);
+
+	$sql = new PDO('mysql:host='.$db_info->server_name.';dbname='.$db_info->db_name.';',$db_info->user,$db_info->password);
+
+
         $stmt = $sql->prepare("SELECT * FROM formation WHERE nomFormation = ?");
         $stmt->execute(array($title));
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
