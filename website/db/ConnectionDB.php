@@ -7,9 +7,10 @@
  */
 
 class ConnectionDB {
-    public $server_name = "mysql: host=localhost;";
-    public $db_name = "dbname=mydb";
+    public $server_name = "localhost";
+    public $db_name = "mydb";
     public $user = "root";
     public $password = "";
+
 
 }
