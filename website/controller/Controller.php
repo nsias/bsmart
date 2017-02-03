@@ -6,6 +6,7 @@
  * Time: 14:21
  */
 include_once("model/Model.php");
+include_once("controller/Session.php");
 
 class Controller {
     public $model;
@@ -17,6 +18,7 @@ class Controller {
 
     public function invoke()
     {
+        Session::_instance();
         if (!isset($_GET['content']))
         {
             // no special book is requested, we'll show a list of all available contents

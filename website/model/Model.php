@@ -7,6 +7,7 @@
  */
 include_once("model/Content.php");
 include_once("model/Formation.php");
+include_once("controller/Session.php");
 
 class Model {
 
@@ -19,7 +20,7 @@ class Model {
             "security" => new Content("Sécurité des réseaux","Ceci est une description de cours"),//"A.Vanham"
             "php" => new Content("PHP", "Ceci est le cours de Delvigne"),
             "evaluation" => new Content("Vos evaluations", "Ceci est la liste des eval"),
-            "login" => new Content("Connexion", "Connectez-vous !"),
+            "login" => new Content("Connexion", $this->getFormConnection()),
             "register" => new Content("Inscription", "Inscrivez-vous !"),
             "allFormation" => new Content("Toutes les formations", "Ceci est la liste des formations")
         );
@@ -40,6 +41,27 @@ class Model {
 
     }
 
+    public function getFormConnection()
+    {
+        if(Session::getId() != 0)
+        {
+            return "<button type=\"submit\" class=\"btn btn-default\" id=\"disconnection\">Déconnexion</button>";
+        }
+        else
+        {
+           return "<form id='connection'>
+        <div class=\"form-group\">
+        <label for=\"email\">Pseudo:</label>
+        <input type=\"email\" class=\"form-control\" id=\"email\">
+        </div>
+        <div class=\"form-group\">
+        <label for=\"pwd\">Mot de passe:</label>
+        <input type=\"password\" class=\"form-control\" id=\"pwd\">
+        </div>
+        <button type=\"submit\" class=\"btn btn-default\">Connexion</button>
+        </form>";
+        }
+    }
 
 
 }

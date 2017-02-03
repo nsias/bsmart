@@ -126,6 +126,12 @@
                  });
             }
         });
+        $("#connection").submit(function(event)
+        {
+            console.log("cc");
+            event.preventDefault();
+            console.log(rq);
+        });
     });
 </script>
 
