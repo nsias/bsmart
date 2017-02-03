@@ -10,7 +10,7 @@ class ConnectionDB {
     public $server_name = "localhost";
     public $db_name = "mydb";
     public $user = "root";
-    public $password = "rfc13579";
+    public $password = "";
 
 
 }
