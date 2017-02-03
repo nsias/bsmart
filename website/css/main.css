@@ -82,7 +82,7 @@ body, html {
 }
 
 #main {
-	max-width:1280px;
+	
 	min-height:100%;
 	margin:0 auto;
 	position:relative;
@@ -93,7 +93,7 @@ body, html {
 .navbar {
 	text-transform: uppercase;
 	margin-bottom: 0px;
-	margin-left : -600px;
+	
 }
 
 .navbar-left{
@@ -108,9 +108,7 @@ body, html {
     color: #e94e1b;
 }
 
-.navbar-right{
-	margin-right: -600px;
-}
+
 
 .glyphicon:before { 
 	margin-right: 5px; 
