@@ -5,7 +5,7 @@
  * Date: 02-02-17
  * Time: 15:32
  */
-include_once("db/ConnectionDB.php");
+include_once("model/DBConnection.php");
 class Formation {
     public $id;
     public $title;
@@ -13,12 +13,9 @@ class Formation {
 
     public function __construct($title)
     {
-        $db_info = new ConnectionDB();
+        $sql = DBConnection::getInstance();
         //$sql = new PDO("mysql: host =localhost; dbname=1516he201220", "SIAS" , "Nicolas6B4g");
         //$sql = new PDO("mysql:host=".$db_info->server_name.";dbname=".$db_info->db_name.",".$db_info->user.",".$db_info->password);
-
-	$sql = new PDO('mysql:host='.$db_info->server_name.';dbname='.$db_info->db_name.';',$db_info->user,$db_info->password);
-
 
         $stmt = $sql->prepare("SELECT * FROM formation WHERE nomFormation = ?");
         $stmt->execute(array($title));
