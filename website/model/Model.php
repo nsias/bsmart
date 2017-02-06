@@ -20,8 +20,8 @@ class Model {
             "security" => new Content("Sécurité des réseaux","Ceci est une description de cours"),//"A.Vanham"
             "php" => new Content("PHP", "Ceci est le cours de Delvigne"),
             "evaluation" => new Content("Vos evaluations", "Ceci est la liste des eval"),
-            "login" => new Content("Connexion", $this->getFormConnection()),
-            "register" => new Content("Inscription", "Inscrivez-vous !"),
+            "register" => new Content("Connexion", $this->getFormConnection()),
+            "login" => new Content("Inscription", "Inscrivez-vous !"),
             "allFormation" => new Content("Toutes les formations", "Ceci est la liste des formations")
         );
     }
