@@ -6,6 +6,8 @@
  * Date: 03-02-17
  * Time: 13:33
  */
+include_once("model/DBConnection.php");
+
 class Session
 {
 
@@ -36,6 +38,22 @@ class Session
     public static function getId()
     {
         return $_SESSION["id"];
+    }
+    public static function setSession()
+    {
+        $sql = DBConnection::getInstance();
+        $stmt = $sql->prepare("SELECT * FROM user WHERE pseudo = ? and password = ?");
+        $stmt->execute(array($_GET['user'],$_GET['pwd']));
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if($result)
+        {
+            $_SESSION["id"]=$result[0]["iduser"];
+            $_SESSION["name"]=$result[0]["pseudo"];
+            $_SESSION["role"]=$result[0]["idStatut"];
+            return true;
+        }
+        else
+            return false;
     }
 
 }

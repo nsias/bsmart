@@ -41,19 +41,36 @@ class Model {
 
     }
 
+
+
+
+    //Login stuff
+
+
     public function getFormConnection()
     {
+        if(isset($_GET["submit"]))
+        {
+            if(Session::setSession())
+            {
+                return "Vous êtes connecté<br/><button type=\"submit\" class=\"btn btn-default\" id=\"disconnection\">Déconnexion</button>";
+            }
+            else
+            {
+                return "Echec de connexion";
+            }
+        }
         if(Session::getId() != 0)
         {
-            return "<button type=\"submit\" class=\"btn btn-default\" id=\"disconnection\">Déconnexion</button>";
+            return "Vous êtes connecté<br/><button type=\"submit\" class=\"btn btn-default\" id=\"disconnection\">Déconnexion</button>";
         }
         else
         {
             //<form method ="post" action="testForm.php">
            return "<form id=\"connexion\">
         <div class=\"form-group\">
-        <label for=\"email\">Pseudo:</label>
-        <input type=\"email\" class=\"form-control\" id=\"email\">
+        <label for=\"text\">Pseudo:</label>
+        <input type=\"text\" class=\"form-control\" id=\"user\">
         </div>
         <div class=\"form-group\">
         <label for=\"pwd\">Mot de passe:</label>
