@@ -9,9 +9,9 @@ services:
         tty: true
         networks:
             - default
-            - dmz
+            - trusted
             app_net:
-                ipv4_address: 10.0.99.2
+                ipv4_address: 10.0.70.10
         volumes:
             - /home/user/site:/var/www/html
 
