@@ -7,7 +7,6 @@
  */
 include_once("model/Content.php");
 include_once("model/Formation.php");
-include_once("controller/Session.php");
 
 class Model {
 
@@ -20,8 +19,8 @@ class Model {
             "security" => new Content("Sécurité des réseaux","Ceci est une description de cours"),//"A.Vanham"
             "php" => new Content("PHP", "Ceci est le cours de Delvigne"),
             "evaluation" => new Content("Vos evaluations", "Ceci est la liste des eval"),
-            "register" => new Content("Connexion", $this->getFormConnection()),
-            "login" => new Content("Inscription", "Inscrivez-vous !"),
+            "register" => new Content("Inscription", "Inscrivez-vous !"),
+            "login" => new Content("Connexion", $this->getFormConnection()),
             "allFormation" => new Content("Toutes les formations", "Ceci est la liste des formations")
         );
     }
@@ -34,39 +33,58 @@ class Model {
         return $allContents[$title];
     }
 
+    //--------------FORMATIONS METHODS -------------//
+
     public function getFormationContent($title)
     {
         $formation = new Formation($title);
         return $formation->content;
 
     }
+    //--------------MENU METHODS ----------------------//
+    public function getMenuByRole($role)
+    {
+        $array_menu = [];
+        switch($role)
+        {
+            case '0' :
+                $array_menu = array (
+                    "Inscription" => "register",
+                    "Connexion" => "login"
+                ); break; //Anonymous
+            case '1' :
+                $array_menu = array (
+                "Formations" => "allFormation",
+                "Vos evaluations" => "evaluation",
+                "Inscription" => "register",
+                "Connexion" => "login"
+            ); break; //Student
+            case '2' :
+                $array_menu = array (
+                "Formations" => "allFormation",
+                "Corrections" => "correction",
+                "Inscription" => "register",
+                "Connexion" => "login"
+            );break; //Teacher
+        }
+        return $this->getMenu($array_menu);
+    }
+
+    public function getMenu($array)
+    {
+        $tb = '';
+        foreach($array as $key => $value)
+        {
+            $tb .="<li><a href=\"$value\">".$key."</a></li>";
+        }
+        return $tb;
+    }
 
 
-
-
-    //Login stuff
-
+    //---------------LOGIN--------------------------//
 
     public function getFormConnection()
     {
-        if(isset($_GET["submit"]))
-        {
-            if(Session::setSession())
-            {
-                return "Vous êtes connecté<br/><button type=\"submit\" class=\"btn btn-default\" id=\"disconnection\">Déconnexion</button>";
-            }
-            else
-            {
-                return "Echec de connexion";
-            }
-        }
-        if(Session::getId() != 0)
-        {
-            return "Vous êtes connecté<br/><button type=\"submit\" class=\"btn btn-default\" id=\"disconnection\">Déconnexion</button>";
-        }
-        else
-        {
-            //<form method ="post" action="testForm.php">
            return "<form id=\"connexion\">
         <div class=\"form-group\">
         <label for=\"text\">Pseudo:</label>
@@ -78,7 +96,7 @@ class Model {
         </div>
         <button type=\"submit\" href=\"javascript::onclick();\" class=\"btn btn-default\" id=\"loginButton\">Connexion</button>
         </form>";
-        }
+
     }
 
 

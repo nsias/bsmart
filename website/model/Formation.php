@@ -33,3 +33,20 @@ class Formation {
         }
     }
 }
+
+
+/*
+ *                 <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Formations<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="english">Anglais</a></li>
+                        <li><a href="php">Php</a></li>
+                        <li><a href="security">Sécurité des réseaux</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="allFormations">Toutes les formations</a></li>
+                    </ul>
+                </li>
+                <li><a href="evaluation">Vos évaluations</a></li>
+                <li><a href="register"><span class="glyphicon glyphicon-user"></span>S'enregistrer</a></li>
+                <li><a href="login"><span class="glyphicon glyphicon-log-in"></span>Se connecter</a></li>
+ */
