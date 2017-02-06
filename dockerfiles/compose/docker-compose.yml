@@ -1,0 +1,63 @@
+version: '2'
+
+services:
+    web1:
+        image: web1
+        container_name: web1
+        command: sh
+        stdin_open: true
+        tty: true
+        networks:
+            - default
+            - dmz
+            app_net:
+                ipv4_address: 10.0.99.2
+        volumes:
+            - /home/user/site:/var/www/html
+
+    bdd:
+        image: bdd
+        container_name: bdd
+        command: sh
+        stdin_open: true
+        tty: true
+        networks:
+            - default
+            - trusted
+            app_net:
+                ipv4_address: 10.0.70.3
+
+
+    reverse:
+        image: reverse
+        container_name: reverse
+        command: sh
+        stdin_open: true
+        tty: true
+        networks:
+            - default
+            - dmz
+            app_net:
+                ipv4_address: 10.0.99.6
+
+
+networks:
+    dmz:
+        driver: macvlan
+        driver_opts:
+            parent: eth0.99
+        ipam:
+            config:
+                - subnet: 10.0.99.0/24
+                  ip_range: 10.0.99.0/24
+                  gateway: 10.0.99.1
+   trusted:
+        driver: macvlan
+        driver_opts:
+            parent: eth0.70
+        ipam:
+            config:
+                - subnet: 10.0.70.0/24
+                  ip_range: 10.0.70.0/24
+                  gateway: 10.0.70.1
+    
