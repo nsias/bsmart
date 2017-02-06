@@ -10,6 +10,7 @@ include_once("controller/Session.php");
 
 class Controller {
     public $model;
+    public $json_data = [];
 
     public function __construct()
     {
@@ -21,15 +22,18 @@ class Controller {
         Session::_instance();
         if (!isset($_GET['content']))
         {
-            // no special book is requested, we'll show a list of all available contents
-            $content = $this->model->getContent("main");
+            // no special formations is requested, we'll show a list of all available contents
+            $json_data['titleContent'] = $this->model->getContent("main")->title;
+            $json_data['bodyContent'] = $this->model->getContent("main")->content;
             include 'view/viewmain.php';
         }
         else
         {
             // show the requested content
-            $content = $this->model->getContent($_GET['content']);
-            include 'view/viewmain.php';
+            $json_data['titleContent'] = $this->model->getContent($_GET['content'])->title;
+            $json_data['bodyContent'] = $this->model->getContent($_GET['content'])->content;
+            //include 'view/viewmain.php';
         }
+        die(json_encode($json_data));
     }
 }

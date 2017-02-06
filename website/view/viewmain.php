@@ -69,11 +69,11 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h1>
-                    <?php echo $content->title ?>
+                <h1 id="titleContent">
+                    <?php echo $json_data['titleContent'] ?>
                 </h1>
-                <p>
-                    <?php echo $content->content ?>
+                <p id="bodyContent">
+                    <?php echo $json_data['bodyContent']; ?>
                 </p>
             </div>
         </div>
@@ -99,39 +99,88 @@
 <script src="js/bootstrap.min.js"></script>
 <!-- Script back to top -->
 <script>
-    $(document).ready(function() {
-        $(window).scroll(function() {
-            if ($(this).scrollTop() > 100) {
+
+    function testJSON(result){
+        json = {};
+        try
+        {
+            json = JSON.parse(result);
+        }
+        catch (err)
+        {
+            json = {'titleContent' : 'Erreur JSON',
+                'bodyContent' : result
+            };
+        }
+        return json;
+    }
+
+    function jsonDoSomething(objectJS){
+        $.each(objectJS, function(key, value){
+            //console.log(key +":"+ value);
+            switch (key){
+                case "titleContent" :
+                case "bodyContent" : $("#"+key).html(value);break;
+                default : alert("Err.retour : cas non traité ...  " + key);
+            }
+        });
+    }
+
+    $(document).ready(function()
+    {
+        $(window).scroll(function()
+        {
+            if ($(this).scrollTop() > 100)
+            {
                 $('.go-top').fadeIn(100);
             }
-            else {
+
+            else
+            {
                 $('.go-top').fadeOut(100);
             }
         });
 
-        $('.go-top').click(function(event) {
+        $('.go-top').click(function(event)
+        {
             event.preventDefault();
             $('html, body').animate({scrollTop: 0}, 100);
-        })
-       $('#menu li').click(function(event){
+        });
+
+
+       $( '#menu li' ).click(function(event)
+       {
             event.preventDefault();
             var rq = $(this).find("a").attr('href');
             if(rq != "#")
             {
-                //console.log(rq);
-                $.get("index.php?content="+rq, function(data){
-                    //document.title = rq;
-                    //console.log(data);
-                    $("#content").load("index.php?content="+rq+" #content .container");
-                 });
+                $.get("index.php?content="+rq, function( data )
+                {
+                    jsonDoSomething(testJSON(data));
+                })
+                .done( function()
+                {
+                   console.log('it works');
+                    loadAsynchronousForm();
+                });
+
             }
+
         });
-        $("#connection").submit(function(event)
+
+       // console.log('love');
+
+        function loadAsynchronousForm()
         {
-            console.log("cc");
-            event.preventDefault();
-            console.log(rq);
-        });
+            $("#loginButton").click( function( e )
+            {
+                e.stopPropagation();
+                e.preventDefault();
+
+                alert("CC");
+            });
+        }
+
     });
 </script>
 

@@ -49,7 +49,8 @@ class Model {
         }
         else
         {
-           return "<form id='connection'>
+            //<form method ="post" action="testForm.php">
+           return "<form id=\"connexion\">
         <div class=\"form-group\">
         <label for=\"email\">Pseudo:</label>
         <input type=\"email\" class=\"form-control\" id=\"email\">
@@ -58,7 +59,7 @@ class Model {
         <label for=\"pwd\">Mot de passe:</label>
         <input type=\"password\" class=\"form-control\" id=\"pwd\">
         </div>
-        <button type=\"submit\" class=\"btn btn-default\">Connexion</button>
+        <button type=\"submit\" href=\"javascript::onclick();\" class=\"btn btn-default\" id=\"loginButton\">Connexion</button>
         </form>";
         }
     }
