@@ -12,7 +12,7 @@ function testJSON(result){
     {
         json = {'menuContent' : '',
             'titleContent' : 'Erreur JSON',
-            'bodyContent' : result
+            'bodyContent' : err
         };
     }
     return json;
@@ -22,7 +22,7 @@ function jsonDoSomething(objectJS){
     $.each(objectJS, function(key, value){
         //console.log(key +":"+ value);
         switch (key){
-            case "menuContent": console.log(value);
+            case "menuContent":
             case "titleContent" :
             case "bodyContent" : $("#"+key).html(value);break;
             default : alert("Err.retour : cas non traité ...  " + key);
@@ -61,6 +61,30 @@ function arrowShow()
     });
 }
 
+function onClickLink()
+{
+    $( '.link' ).on('click',function(event)
+    {
+        event.preventDefault();
+        var rq = $(this).find("a").attr("href");
+        console.log(rq);
+        if(rq != "#")
+        {
+            $.get("index.php?content="+rq, function( data )
+            {
+                jsonDoSomething(testJSON(data));
+            })
+                .done( function()
+                {
+                    //loadAsynchronousForm();
+                    onClickMenu();
+                    //onClickLink();
+                });
+
+        }
+    });
+}
+
 function onClickMenu()
 {
     $( '#menu li' ).click(function(event)
@@ -75,8 +99,9 @@ function onClickMenu()
             })
                 .done( function()
                 {
-                    loadAsynchronousForm();7
+                    loadAsynchronousForm();
                     onClickMenu();
+                    onClickLink();
                 });
 
         }
@@ -90,28 +115,37 @@ function loadAsynchronousForm()
     $("form").submit( function( e )
     {
         e.preventDefault();
+        var url;
         var strSubmit = "&";
         $("form :input").each(function()
         {
             //str.concat("&");
             var id = $(this).attr("id");
-            if(id !="loginButton")
+            if(id !="loginButton" && id !="registerButton")
             {
                 var val = $(this).val();
                 strSubmit += id+"=";
                 strSubmit += val+"&";
             }
-            else
+            else if(id == "loginButton")
             {
-                strSubmit +="submit=ON";
+                strSubmit +="submit=LOGIN";
+                url = "index.php?content=login"+strSubmit;
+            }
+            else if(id == "registerButton")
+            {
+                strSubmit +="submit=REGISTER";
+                url = "index.php?content=register"+strSubmit;
             }
 
         });
         console.log(strSubmit);
-        $.get("index.php?content=login"+strSubmit,function(data){
+
+        $.get(url,function(data){
             jsonDoSomething(testJSON(data));
         }).done(function(){
             onClickMenu();
+            onClickLink();
         });
     });
 }

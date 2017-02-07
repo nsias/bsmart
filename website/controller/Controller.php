@@ -19,7 +19,7 @@ class Controller {
     public function invoke()
     {
         session_start();
-        if(isset($_GET['submit']))
+        if(isset($_GET['submit']) && $_GET["submit"] == "LOGIN")
         {
             $sql = DBConnection::getInstance();
             $stmt = $sql->prepare("SELECT * FROM user WHERE pseudo = ? and password = ?");
@@ -41,17 +41,19 @@ class Controller {
         if (!isset($_GET['content']))
         {
             // no special formations is requested
+            $content = $this->model->getContent("main");
             $json_data['menuContent'] = $this->model->getMenuByRole($role);
-            $json_data['titleContent'] = $this->model->getContent("main")->title;
-            $json_data['bodyContent'] = $this->model->getContent("main")->content;
+            $json_data['titleContent'] = $content->title;
+            $json_data['bodyContent'] = $content->content;
             include 'view/viewmain.php';
         }
         else
         {
             // show the requested content
+            $content = $this->model->getContent($_GET["content"]);
             $json_data['menuContent'] = $this->model->getMenuByRole($role);
-            $json_data['titleContent'] = $this->model->getContent($_GET['content'])->title;
-            $json_data['bodyContent'] = $this->model->getContent($_GET['content'])->content;
+            $json_data['titleContent'] = $content->title;
+            $json_data['bodyContent'] = $content->content;
             //$json_data['bodyContent'] .= "<br/>".implode("\n",$_SESSION);
             //include 'view/viewmain.php';
         }
