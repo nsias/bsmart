@@ -10,4 +10,4 @@ COPY apache2.conf /etc/apache2/apache2.conf
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 
 
-RUN service apache2 start
+CMD service apache2 start
