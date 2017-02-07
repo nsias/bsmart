@@ -6,7 +6,7 @@ RUN apt-get install -y apache2
 RUN apt-get install -y php
 RUN apt-get install -y php-mysql
 RUN apt-get install -y libapache2-mod-php
-RUN apt-get install -y nano
+CMD apt-get install -y nano
 
 COPY apache2.conf /etc/apache2/apache2.conf
 
