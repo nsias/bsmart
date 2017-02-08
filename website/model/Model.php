@@ -16,12 +16,19 @@ class Model {
         return array(
             "main" => new Content("Bienvenue sur Bsmart", "Le meilleur de site de formation en ligne"),
             "english" => new Content("Anglais", $this->getFormationContent("english")), //"D.Verdonck"
-            "security" => new Content("Sécurité des réseaux","Ceci est une description de cours"),//"A.Vanham"
+            "security" => new Content("Sécurité des réseaux",$this->getFormationContent("security")),//"A.Vanham"
             "php" => new Content("PHP", $this->getFormationContent("php")),
             "evaluation" => new Content("Vos evaluations", "Ceci est la liste des eval"),
             "register" => new Content("Inscription", $this->getFormRegister()),
             "login" => new Content("Connexion", $this->getFormConnection()),
-            "allFormation" => new Content("Toutes les formations", $this->getFormationByUser())
+            "allFormation" => new Content("Toutes les formations", $this->getFormationByUser()),
+            "paiement" => new Content("Payez ici pour avoir cette formation", "<div class=\"starpass-div\">
+<div id=\"starpass_321987\"></div><script type=\"text/javascript\" src=\"http://script.starpass.fr/script.php?idd=321987&amp;verif_en_php=1&amp;datas=\"></script><noscript>Veuillez activer le Javascript de votre navigateur s'il vous pla&icirc;t.<br /><a href=\"http://www.starpass.fr/\">Micro Paiement StarPass</a></noscript>
+</div>"),
+            "correction" => new Content("Vos corrections","Vous n'avez aucune correction"),
+            "evaluation" => new Content("Vos evaluations", $this->getQuizzByUser()),
+            "englishQuizz" => new Content ("Evaluation du cours d'Anglais", "Vous avez déjà fait cette évaluation"),
+            "phpQuizz" => new Content ("Evaluation du cours de PHP", "Allez voir Delvigne pour avoir vos points")
         );
     }
 
@@ -33,38 +40,94 @@ class Model {
         return $allContents[$title];
     }
 
+
+    //--------------QUIZZ METHODS --------------//
+    public function getQuizzByUser()
+    {
+        if(!isset($_SESSION["id"]))
+            return "Vous n'êtes pas connecté";
+        $out = '<ul>';
+        $sql = DBConnection::getInstance();
+        $stmt = $sql->prepare("SELECT * FROM formation");
+        $stmt->execute();
+        $db_result_form = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+        $stmt2 = $sql->prepare("SELECT idFormation FROM user_formation WHERE idUser= ?");
+        $stmt2->execute(array($_SESSION["id"]));
+        $db_result_id = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+
+
+
+        if($db_result_form)
+        {
+            foreach($db_result_form as $formation)
+            {
+                $isPaid = false;
+                if($db_result_id)
+                {
+                    foreach($db_result_id as $id)
+                    {
+                        if($formation['idFormation'] == $id['idFormation'])
+                        {
+                            $out .="<li class='link'><a style='color:green' href='".$formation['nomFormation']."Quizz'>".$formation['titre']."</a></li>";
+                            $isPaid = true;
+                        }
+                    }
+                }
+                if(!$isPaid)
+                    $out .="<li class='link'><a style='color:red' href='paiement'>".$formation['titre']."(Vous n'avez pas acces, cliquez dessus pour payer pour cette formation)</a></li>";
+            }
+        }
+        $out .="</ul>";
+        return utf8_encode($out);
+    }
+    
+
+
     //--------------FORMATIONS METHODS -------------//
 
     public function getFormationByUser()
     {
         if(!isset($_SESSION["id"]))
             return "Vous n'êtes pas connecté";
-        $out = '<h2>Vos formations</h2><div><ul>';
+        $out = '<ul>';
         $sql = DBConnection::getInstance();
-        $stmt = $sql->prepare("SELECT idFormation FROM user_formation WHERE idUser = ?");
-        $stmt->execute(array($_SESSION["id"]));
-        $db_result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        if($db_result)
+        $stmt = $sql->prepare("SELECT * FROM formation");
+        $stmt->execute();
+        $db_result_form = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+        $stmt2 = $sql->prepare("SELECT idFormation FROM user_formation WHERE idUser= ?");
+        $stmt2->execute(array($_SESSION["id"]));
+        $db_result_id = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+
+
+
+        if($db_result_form)
         {
-            foreach($db_result as $r)
+            foreach($db_result_form as $formation)
             {
-                foreach($r as $id_formation)
+                $isPaid = false;
+                if($db_result_id)
                 {
-                    $stmt = $sql->prepare("SELECT * FROM formation WHERE idFormation = ?");
-                    $stmt->execute(array($id_formation));
-                    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                    if($result)
+                    foreach($db_result_id as $id)
                     {
-                        //$out .=  $result[0]['nomFormation'];
-                        $out .="<li class='link'><a href='".$result[0]['nomFormation']."'>".$result[0]['titre']."</a></li>";
+                        if($formation['idFormation'] == $id['idFormation'])
+                        {
+                            $out .="<li class='link'><a style='color:green' href='".$formation['nomFormation']."'>".$formation['titre']."</a></li>";
+                            $isPaid = true;
+                        }
                     }
                 }
+                if(!$isPaid)
+                    $out .="<li class='link'><a style='color:red' href='paiement'>".$formation['titre']."(Vous n'avez pas acces, cliquez dessus pour payer pour cette formation)</a></li>";
             }
         }
-        $out .="</ul></div>";
-        return $out;
-
+        $out .="</ul>";
+        return utf8_encode($out);
     }
+
     public function getFormationContent($title)
     {
 

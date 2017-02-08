@@ -37,7 +37,7 @@
             </button>
             <a href="index.php">
                 <img src="img/logo-alpha.png" id="logo" alt="Laptop" style="width:56px;height:56px;border:0;">
-                <a class="navbar-brand">Bsmart</a>
+                <a class="navbar-brand" style="color :#9ab4cb">Bsmart</a>
             </a>
         </div>
         <div id="menu" class="navbar-collapse collapse">

@@ -130,7 +130,7 @@ function loadAsynchronousForm()
             else if(id == "loginButton")
             {
                 strSubmit +="submit=LOGIN";
-                url = "index.php?content=login"+strSubmit;
+                url = "index.php?content=allFormation"+strSubmit;
             }
             else if(id == "registerButton")
             {
