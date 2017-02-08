@@ -84,7 +84,7 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/bordelDelvigneStyle.js"> </script>
 <!-- Script back to top -->
-
+<ul hidden>
 </body>
 
 </html>

@@ -28,7 +28,7 @@ class Model {
             "correction" => new Content("Vos corrections","Vous n'avez aucune correction"),
             "evaluation" => new Content("Vos evaluations", $this->getQuizzByUser()),
             "englishQuizz" => new Content ("Evaluation du cours d'Anglais", "Vous avez déjà fait cette évaluation"),
-            "phpQuizz" => new Content ("Evaluation du cours de PHP", "Allez voir Delvigne pour avoir vos points")
+            "phpQuizz" => new Content ("Evaluation du cours de PHP", $this->getQuizz())
         );
     }
 
@@ -82,7 +82,22 @@ class Model {
         $out .="</ul>";
         return utf8_encode($out);
     }
-    
+
+
+    public function getQuizz()
+    {
+        return "<pre> Comment déclarer une variable en php ?</pre><form><div class=\"checkbox\">
+  <label><input type=\"checkbox\" value=\"\">En mettant un $ puis le nom de la variable</label>
+</div>
+<div class=\"checkbox\">
+  <label><input type=\"checkbox\" value=\"\">En téléphonant au père Noël 08.36.65.65.65</label>
+</div>
+<div class=\"checkbox\">
+  <label><input type=\"checkbox\" value=\"\">En demandant à monsieur Delvigne</label>
+</div>
+<button type=\"submit\" href=\"javascript::onclick();\" class=\"btn btn-default\" id=\"quizzButton\">Envoyer</button></form>";
+    }
+
 
 
     //--------------FORMATIONS METHODS -------------//

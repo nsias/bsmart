@@ -76,7 +76,7 @@ function onClickLink()
             })
                 .done( function()
                 {
-                    //loadAsynchronousForm();
+                    loadAsynchronousForm();
                     onClickMenu();
                     //onClickLink();
                 });
@@ -137,7 +137,11 @@ function loadAsynchronousForm()
                 strSubmit +="submit=REGISTER";
                 url = "index.php?content=register"+strSubmit;
             }
-
+            else if(id == "quizzButton")
+            {
+                strSubmit += "submit=QUIZZ";
+                url = "index.php"+strSubmit;
+            }
         });
         console.log(strSubmit);
 
