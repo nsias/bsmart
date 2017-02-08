@@ -11,5 +11,3 @@ RUN apt-get install -y nano
 COPY apache2.conf /etc/apache2/apache2.conf
 
 
-CMD service apache2 start
-
